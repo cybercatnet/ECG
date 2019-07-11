@@ -140,10 +140,12 @@ def rect_window(ft, delta):
     return ventana
 
 
-filename = "ECG\\arritmia\\100.dat"
-#filename = "aami3d.dat"
-#filename = "aami3a.dat"
-#filename = "f0005.wav"
+filename = "arritmia\\100.dat"
+#filename = "ruido\\aami3d.dat"
+#filename = "picos_abajo\\aami3a.dat"
+#filename = "ilegible\\f0005.wav"
+#filename = "normal\\aami4b_d.dat"
+#filename = "normal\\aami4b_h.dat"
 
 lector = File_Handler()
 pulsos_por_tajada = 3
@@ -175,11 +177,11 @@ transformada_ventaneada = rect_window(transformada, 5)
 
 frecuencia_cardiaca = ecg.cardiac_frequency()
 
-printer("Frecuencia Cardíaca: " + str(frecuencia_cardiaca) + " hz")
+printer("Frecuencia Cardíaca: " + str(frecuencia_cardiaca * 60) + " ppm")
 
-if(frecuencia_cardiaca < 0.6):
+if(frecuencia_cardiaca > 1.6):
     printer("Taquicardia")
-elif(frecuencia_cardiaca > 1):
+elif(frecuencia_cardiaca < 1):
     printer("Bradicardia")
 else:
     printer("Normal")

@@ -17,7 +17,7 @@ ecg = lector.read_signal_file(filename, pulsos_por_tajada)
 
 time_original = ecg.original_time()
 
-(pulsos_tiempo, pulsos) = ecg.pulsos(pulsos_por_tajada)
+(pulsos_tiempo, pulsos) = ecg.pulsos()
 
 if ecg.arrhythmia_detector():
     printer("Arritmia Detectada")

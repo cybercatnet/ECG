@@ -90,14 +90,15 @@ class Signal:
 
     def cardiac_frequency(self):
         maximo = find_first_maximum(self._transform)
+        print(maximo)
         self._cardiac_frequency = self._frequency[maximo]
 
         return self._cardiac_frequency
 
     def find_pulse_peaks(self, data):
-        height = max(data) * 0.8
+        height = max(data) * 0.65
 
-        return find_peaks(data, height=height)
+        return find_peaks(data, height=height, distance=80)
 
     def detect_arritmia(self):
         self._has_arritmia = self.arrhythmia_detector()

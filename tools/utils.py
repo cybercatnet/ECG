@@ -19,7 +19,7 @@ def find_first_maximum(tf):
 
 
 def rect_window(ft, delta):
-    ventana = numpy.zeros(len(ft))
+    ventana = numpy.zeros(len(ft), dtype=complex)
     largo = len(ventana)
 
     ventana[0:delta] = ft[0:delta]

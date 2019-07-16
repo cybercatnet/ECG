@@ -20,7 +20,7 @@ class FileHandler:
         self.readers = {"wav": read_wav_file,
                         "dat": read_dat_file}
 
-    def read_signal_file(self, filename, pulsos_por_tajada):
+    def read_signal_file(self, filename, time_cut):
 
         def file_extension(filename):
             return filename[filename.find(".") + 1:]
@@ -31,6 +31,7 @@ class FileHandler:
             raise "Invalid file extension:" + ext
 
         fs, data = self.readers[ext](filename)
-        signal = Signal(fs, data, pulsos_por_tajada)
 
-        return signal
+        signal = Signal(fs, data, time_cut)
+
+        return signal, fs, data

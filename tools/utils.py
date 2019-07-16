@@ -28,19 +28,6 @@ def rect_window(ft, delta):
 
     return ventana
 
-def bass_filter(ft, frecuency_axis, freq):
-    ventana = numpy.zeros(len(ft), dtype=complex)
-    largo = len(ventana)
-    #encontrar la frecuencia mas cercana si el elemento no esta en el eje de la frecuencia, busqueda secuencial por ahora
-    if freq not in frecuency_axis:
-        for f in frecuency_axis:
-            if f > freq:
-                freq = f
-                print(freq)
-                break
-    delta = frecuency_axis.tolist().index(freq)
-    ventana[delta:-delta] = ft[delta:-delta]
-    return ventana
 
 def window_in_db(fft):
 

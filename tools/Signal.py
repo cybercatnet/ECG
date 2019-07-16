@@ -25,6 +25,8 @@ class Signal:
         self.cardiac_frequency()
 
     def bass_filter(self):
+        if self._bass_filter <= 0:
+            return
         ft, frecuency_axis = self.transform()
         ft_filtered = numpy.zeros(len(ft), dtype=complex)
         largo = len(ft_filtered)
@@ -34,9 +36,10 @@ class Signal:
                 if f > self._bass_filter:
                     self._bass_filter = f
                     break
-            self._bass_filter = min(frecuency_axis)
+        if self._bass_filter not in frecuency_axis:
+            self._bass_filter = 0
         delta = frecuency_axis.tolist().index(self._bass_filter)
-        ft_filtered[delta:-delta] = ft[delta:-delta]
+        ft_filtered[delta + 1:-delta] = ft[delta + 1:-delta]
         self._data = self.antitransform(ft_filtered)
 
     def treble_filter(self):
@@ -45,14 +48,16 @@ class Signal:
         largo = len(ft_filtered)
         # encontrar la frecuencia mas cercana si el elemento no esta en el eje de la frecuencia, busqueda secuencial por ahora
         if self._treble_filter not in frecuency_axis:
-            for f in numpy.flip(frecuency_axis):
-                if f < self._treble_filter:
+            for f in frecuency_axis:
+                print(f)
+                if f > self._treble_filter:
                     self._treble_filter = f
                     break
+        if self._treble_filter not in frecuency_axis:
             self._treble_filter = max(frecuency_axis)
         delta = frecuency_axis.tolist().index(self._treble_filter)
         ft_filtered[:delta] = ft[:delta]
-        ft_filtered[-delta:] = ft[-delta:]
+        ft_filtered[-delta + 1:] = ft[-delta + 1:]
         self._data = self.antitransform(ft_filtered)
 
     def normalize_signal(self,original_data):

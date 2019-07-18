@@ -1,5 +1,6 @@
 import numpy
 from scipy.signal import find_peaks
+import scipy.signal as signal
 
 from tools.utils import find_first_maximum, printer
 
@@ -17,6 +18,7 @@ class Signal:
         self._cardiac_frequency = None
         self._pulsos = None
         self._has_arritmia = None
+        self._data = None
 
         self.normalize_signal(data)
         self.find_pulses()
@@ -49,7 +51,6 @@ class Signal:
         # encontrar la frecuencia mas cercana si el elemento no esta en el eje de la frecuencia, busqueda secuencial por ahora
         if self._treble_filter not in frecuency_axis:
             for f in frecuency_axis:
-                print(f)
                 if f > self._treble_filter:
                     self._treble_filter = f
                     break
@@ -60,10 +61,16 @@ class Signal:
         ft_filtered[-delta + 1:] = ft[-delta + 1:]
         self._data = self.antitransform(ft_filtered)
 
-    def normalize_signal(self,original_data):
+    def passband_filter(self, data):
+        low_cut = 1 / (self._fs / 2)
+        high_cut = 45 / (self._fs / 2)
+        b, a = signal.butter(4, [low_cut, high_cut], 'bandpass')
+
+        return signal.filtfilt(b, a, data)
+
+    def normalize_signal(self, original_data):
         self._data = original_data[:int(self._time_cut_seg * self.fs())]
-        self.bass_filter()
-        self.treble_filter()
+        self._data = self.passband_filter(self._data)
 
     def inverted_ecg_detect(self):
         pass

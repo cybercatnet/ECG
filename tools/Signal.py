@@ -61,16 +61,16 @@ class Signal:
         ft_filtered[-delta + 1:] = ft[-delta + 1:]
         self._data = self.antitransform(ft_filtered)
 
-    def passband_filter(self, data):
-        low_cut = 1 / (self._fs / 2)
-        high_cut = 45 / (self._fs / 2)
+    def passband_filter(self, data, low_cut_hz, high_cut_hz):
+        low_cut = low_cut_hz / (self._fs / 2)
+        high_cut = high_cut_hz / (self._fs / 2)
         b, a = signal.butter(4, [low_cut, high_cut], 'bandpass')
 
         return signal.filtfilt(b, a, data)
 
     def normalize_signal(self, original_data):
         self._data = original_data[:int(self._time_cut_seg * self.fs())]
-        self._data = self.passband_filter(self._data)
+        self._data = self.passband_filter(self._data, self._bass_filter, self._treble_filter)
 
     def inverted_ecg_detect(self):
         pass

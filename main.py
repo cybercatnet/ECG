@@ -6,8 +6,8 @@ from tools.FileHandler import FileHandler
 from tools.utils import rect_window, window_in_db
 
 # filename = "arritmia/100.dat"
-# filename = "ruido\\aami3d.dat"
-# filename = "picos_abajo\\aami3a.dat"
+# filename = "ruido/aami3d.dat"
+# filename = "picos_abajo/aami3a.dat"
 # filename = "normal/aami4b_d.dat"
 # filename = "normal/aami4b_h.dat"
 # filename = "fetal/1001.dat"

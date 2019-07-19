@@ -8,7 +8,7 @@ from tools.utils import find_first_maximum, printer
 class Signal:
     def __init__(self, fs, data, time_cut_seg):
 
-        self._bass_filter = 3
+        self._bass_filter = 2
         self._treble_filter = 45
         self._porcentaje_desde_maximo_peaks = 0.3
         self._max_freq_taquicardia_lpm = 300
@@ -71,9 +71,6 @@ class Signal:
     def normalize_signal(self, original_data):
         self._data = original_data[:int(self._time_cut_seg * self.fs())]
         self._data = self.passband_filter(self._data, self._bass_filter, self._treble_filter)
-
-    def inverted_ecg_detect(self):
-        pass
 
     def find_pulses(self):
         pulsos_peaks = self.find_pulse_peaks(self.data())

@@ -1,5 +1,5 @@
-from tools.FileHandler import FileHandler
 from tools.Visualizador import Visualizador
+from tools.Signal import Signal
 
 '''
 filename = "arritmia/100.dat"
@@ -23,9 +23,9 @@ filename = "fetal/NR_03.dat" # Maso
 '''
 filename = "fetal/NR_04.dat"
 
-lector = FileHandler()
 tiempo_limite = 30
-ecg, fs, data_original = lector.read_signal_file(filename, tiempo_limite)
 
-visualizador = Visualizador()
-visualizador.imprimir_informacion(ecg, fs, data_original)
+ecg = Signal(filename, tiempo_limite)
+
+visualizador = Visualizador(ecg)
+visualizador.imprimir_informacion()

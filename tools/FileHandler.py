@@ -1,9 +1,6 @@
 import wfdb
 from scipy.io import wavfile
 
-from tools.Signal import Signal
-
-
 class FileHandler:
     def __init__(self):
         def read_wav_file(wav_file_name):
@@ -20,7 +17,7 @@ class FileHandler:
         self.readers = {"wav": read_wav_file,
                         "dat": read_dat_file}
 
-    def read_signal_file(self, filename, time_cut):
+    def read_signal_file(self, filename):
 
         def file_extension(filename):
             return filename[filename.find(".") + 1:]
@@ -32,6 +29,4 @@ class FileHandler:
 
         fs, data = self.readers[ext](filename)
 
-        signal = Signal(fs, data, time_cut)
-
-        return signal, fs, data
+        return fs, data

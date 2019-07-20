@@ -46,7 +46,7 @@ n = n + 1
 subplot[n].plot(ecg.time(), ecg.data())
 subplot[n].set_xlabel('Tiempo')
 subplot[n].set_ylabel('Amplitud')
-subplot[n].title.set_text("Señal Recortada")
+subplot[n].title.set_text("Señal recortada y filtrada")
 
 subplot[n].plot(pulsos_tiempo, pulsos, "ro")
 n = n + 1
@@ -56,17 +56,9 @@ trans1, freq1 = ecg.transform()
 subplot[n].plot(freq1, trans1)
 subplot[n].set_xlabel('Frecuencia')
 subplot[n].set_ylabel('Modulo')
-subplot[n].title.set_text("Transformada Ventaneada de la Señal Recortada")
-'''
+subplot[n].title.set_text("Transformada de la señal recortada y filtrada")
 
-n = n + 1
-
-subplot[n].plot(ecg2.time(), ventana_en_tiempo2)
-subplot[n].set_xlabel('Tiempo')
-subplot[n].set_ylabel('Amplitud')
-subplot[n].title.set_text("Transformada Inversa de la Ventana Recortada")
-'''
 [x.grid() for x in subplot]
 
-# plot.tight_layout()
+plot.tight_layout()
 plot.show()

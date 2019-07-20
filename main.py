@@ -5,8 +5,6 @@ from tools.Signal import Signal
 Muestras de adulto arritmico
 
 filename = "arritmia/100.dat"
-filename = "ruido/aami3d.dat"
-filename = "picos_abajo/aami3a.dat"
 
 Muestras de adulto normales
 

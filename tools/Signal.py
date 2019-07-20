@@ -2,8 +2,6 @@ import numpy
 from scipy.signal import find_peaks
 import scipy.signal as signal
 
-from tools.utils import find_first_maximum, printer
-
 
 class Signal:
     def __init__(self, fs, data, time_cut_seg):
@@ -25,6 +23,12 @@ class Signal:
 
         self._transform, self._frequency = self.transform()
         self.cardiac_frequency()
+
+    def printer(self, text):
+        largo = (len(text))
+        print("┏" + "━" * largo + "┓")
+        print("{:┃^{width}}".format(text, width=largo + 2))
+        print("┗"+"━" * largo + "┛")
 
     def bass_filter(self):
         if self._bass_filter <= 0:
@@ -142,22 +146,22 @@ class Signal:
         self._has_arritmia = self.arrhythmia_detector()
 
         if self._has_arritmia:
-            printer("Arritmia Detectada")
+            self.printer("Arritmia Detectada")
         else:
-            printer("Arritmia No Detectada")
+            self.printer("Arritmia No Detectada")
 
         return self._has_arritmia
 
     def qualify_cardiac_freq(self):
         if (self._cardiac_frequency * 60) > 100:
-            printer("Taquicardia")
+            self.printer("Taquicardia")
         elif (self._cardiac_frequency * 60) < 60:
-            printer("Bradicardia")
+            self.printer("Bradicardia")
         else:
-            printer("Normal")
+            self.printer("Normal")
 
     def print_cardiac_frequency(self):
-        printer("Frecuencia Cardíaca: " +
+        self.printer("Frecuencia Cardíaca: " +
                 str(self._cardiac_frequency * 60) + " ppm")
 
     def get_transform_values(self):

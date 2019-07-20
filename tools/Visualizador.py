@@ -65,8 +65,7 @@ class Visualizador:
             self.printer("Pulso Normal")
 
     def print_cardiac_frequency(self):
-        self.printer("Frecuencia Cardíaca: " +
-                str(self.ecg._cardiac_frequency * 60) + " ppm")
+        self.printer("Frecuencia Cardíaca: " + '{:2.2f}'.format(self.ecg._cardiac_frequency * 60) + " ppm")
 
     def printer(self, text):
         largo = (len(text))
